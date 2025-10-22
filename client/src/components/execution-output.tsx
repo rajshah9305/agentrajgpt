@@ -4,6 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import type { AgentLog } from "@shared/schema";
 import { getAgentTextClass, agentNames, getRelativeTime } from "@/lib/agent-utils";
 import { Terminal, Info, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ExecutionOutputProps {
   logs: AgentLog[];
@@ -65,8 +66,11 @@ export function ExecutionOutput({ logs, isLive = false }: ExecutionOutputProps) 
               logs.map((log, index) => {
                 const level = (log.metadata as any)?.level || "info";
                 return (
-                  <div
+                  <motion.div
                     key={log.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2 }}
                     className="flex items-start gap-2 p-2 rounded-md hover:bg-muted/50 transition-colors"
                     data-testid={`log-entry-${index}`}
                   >
@@ -97,7 +101,7 @@ export function ExecutionOutput({ logs, isLive = false }: ExecutionOutputProps) 
                         </pre>
                       )}
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })
             )}

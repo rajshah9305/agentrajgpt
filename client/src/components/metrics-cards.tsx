@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, CheckCircle2, XCircle, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface MetricsCardsProps {
   totalExecutions: number;
@@ -7,6 +8,8 @@ interface MetricsCardsProps {
   failedExecutions: number;
   avgExecutionTime: number;
 }
+
+const MotionCard = motion(Card);
 
 export function MetricsCards({
   totalExecutions,
@@ -52,27 +55,46 @@ export function MetricsCards({
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      {metrics.map((metric) => {
+      {metrics.map((metric, index) => {
         const Icon = metric.icon;
         return (
-          <Card key={metric.title} className="hover-elevate" data-testid={`card-${metric.testId}`}>
+          <MotionCard
+            key={metric.title}
+            className="hover-elevate"
+            data-testid={`card-${metric.testId}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 {metric.title}
               </CardTitle>
-              <Icon className={`h-4 w-4 ${metric.color}`} />
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", delay: index * 0.1 + 0.2 }}
+              >
+                <Icon className={`h-4 w-4 ${metric.color}`} />
+              </motion.div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold font-mono" data-testid={`text-${metric.testId}`}>
+              <motion.div
+                className="text-2xl font-bold font-mono"
+                data-testid={`text-${metric.testId}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: index * 0.1 + 0.3 }}
+              >
                 {metric.value}
-              </div>
+              </motion.div>
               {metric.subtitle && (
                 <p className="text-xs text-muted-foreground mt-1">
                   {metric.subtitle}
                 </p>
               )}
             </CardContent>
-          </Card>
+          </MotionCard>
         );
       })}
     </div>

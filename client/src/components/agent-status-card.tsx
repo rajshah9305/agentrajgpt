@@ -4,6 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import type { AgentType, AgentStatus, AgentState } from "@shared/schema";
 import { agentNames, agentDescriptions, getAgentColor, getStatusColor } from "@/lib/agent-utils";
 import { Activity, CheckCircle2, XCircle, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface AgentStatusCardProps {
   agent: AgentType;
@@ -31,8 +32,19 @@ export function AgentStatusCard({ agent, state }: AgentStatusCardProps) {
 
   const successRate = state.performance?.successRate ?? 0;
 
+  const MotionCard = motion(Card);
+
   return (
-    <Card className="hover-elevate relative overflow-visible border-l-4" style={{ borderLeftColor: agentColor }} data-testid={`card-agent-${agent}`}>
+    <MotionCard
+      className="hover-elevate relative overflow-visible border-l-4"
+      style={{ borderLeftColor: agentColor }}
+      data-testid={`card-agent-${agent}`}
+      animate={{
+        scale: state.status === "active" ? 1.02 : 1,
+        borderLeftWidth: state.status === "active" ? "6px" : "4px",
+      }}
+      transition={{ duration: 0.2 }}
+    >
       <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
@@ -101,6 +113,6 @@ export function AgentStatusCard({ agent, state }: AgentStatusCardProps) {
           </div>
         )}
       </CardContent>
-    </Card>
+    </MotionCard>
   );
 }

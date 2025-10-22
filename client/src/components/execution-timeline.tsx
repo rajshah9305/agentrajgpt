@@ -4,6 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Task } from "@shared/schema";
 import { agentNames, getAgentColor, getRelativeTime } from "@/lib/agent-utils";
 import { Clock, CheckCircle2, XCircle, Loader2, Circle } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ExecutionTimelineProps {
   tasks: Task[];
@@ -49,7 +50,14 @@ export function ExecutionTimeline({ tasks }: ExecutionTimelineProps) {
                   const agentColor = getAgentColor(task.agentType as any);
 
                   return (
-                    <div key={task.id} className="relative pl-8" data-testid={`task-${index}`}>
+                    <motion.div
+                      key={task.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      className="relative pl-8"
+                      data-testid={`task-${index}`}
+                    >
                       {/* Timeline node */}
                       <div className="absolute left-0 top-1">
                         {getStatusIcon(task.status)}
@@ -104,7 +112,7 @@ export function ExecutionTimeline({ tasks }: ExecutionTimelineProps) {
                           </div>
                         )}
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
