@@ -2,11 +2,15 @@ import OpenAI from "openai";
 import type { AgentType } from "@shared/schema";
 
 // Reference: javascript_openai blueprint
-// the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+// Supports any OpenAI-compatible API (OpenAI, Ollama, LM Studio, Together AI, Groq, etc.)
 const openai = new OpenAI({ 
   apiKey: process.env.OPENAI_API_KEY || "dummy-key",
   baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
 });
+
+// Default model: gpt-4o-mini (fast and affordable)
+// Override with OPENAI_MODEL environment variable for custom models
+const MODEL_NAME = process.env.OPENAI_MODEL || "gpt-4o-mini";
 
 export interface AgentContext {
   goal: string;
@@ -42,14 +46,15 @@ export abstract class BaseAgent {
   ): Promise<string> {
     try {
       const response = await openai.chat.completions.create({
-        model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+        model: MODEL_NAME,
         messages: [
           { role: "system", content: this.systemPrompt },
           ...messages,
         ],
         max_completion_tokens: 8192,
+        stream: false,
         ...options,
-      });
+      }) as OpenAI.Chat.ChatCompletion;
 
       return response.choices[0].message.content || "";
     } catch (error: any) {
@@ -64,7 +69,7 @@ export abstract class BaseAgent {
   ): Promise<any> {
     try {
       const response = await openai.chat.completions.create({
-        model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+        model: MODEL_NAME,
         messages: [
           { role: "system", content: this.systemPrompt },
           ...messages,
@@ -72,6 +77,7 @@ export abstract class BaseAgent {
         functions,
         function_call: "auto",
         max_completion_tokens: 8192,
+        stream: false,
         ...options,
       });
       return response as OpenAI.Chat.ChatCompletion;

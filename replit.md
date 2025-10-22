@@ -125,6 +125,7 @@ SESSION_SECRET=
 # OpenAI API (or compatible endpoint)
 OPENAI_API_KEY=your-api-key-here
 OPENAI_BASE_URL=https://api.openai.com/v1  # Optional: for custom endpoints
+OPENAI_MODEL=gpt-4o-mini  # Optional: default is gpt-4o-mini
 ```
 
 ### OpenAI-Compatible APIs
@@ -132,11 +133,12 @@ OPENAI_BASE_URL=https://api.openai.com/v1  # Optional: for custom endpoints
 RAJGPT is designed to work with OpenAI-compatible API endpoints. You can use:
 - OpenAI's official API
 - Local LLM servers (LM Studio, Ollama with OpenAI compatibility)
-- Cloud providers with OpenAI-compatible endpoints
+- Cloud providers with OpenAI-compatible endpoints (Together AI, Groq, Fireworks, etc.)
 
 **Important**: To enable the multi-agent system, you must configure:
 1. `OPENAI_API_KEY` - Your API key for the service
 2. `OPENAI_BASE_URL` (optional) - Custom endpoint URL if not using OpenAI's official API
+3. `OPENAI_MODEL` (optional) - Model name to use (defaults to gpt-4o-mini)
 
 Without these configured, the agents will not be able to process tasks. The UI and infrastructure will work, but executions will fail with an authorization error.
 
@@ -145,14 +147,27 @@ Without these configured, the agents will not be able to process tasks. The UI a
 # For OpenAI's official API
 OPENAI_API_KEY=sk-...
 OPENAI_BASE_URL=https://api.openai.com/v1
+OPENAI_MODEL=gpt-4o-mini
 
 # For local Ollama with OpenAI compatibility
 OPENAI_API_KEY=dummy-key
 OPENAI_BASE_URL=http://localhost:11434/v1
+OPENAI_MODEL=llama3.2
 
 # For LM Studio
 OPENAI_API_KEY=dummy-key
 OPENAI_BASE_URL=http://localhost:1234/v1
+OPENAI_MODEL=your-model-name
+
+# For Together AI
+OPENAI_API_KEY=your-together-api-key
+OPENAI_BASE_URL=https://api.together.xyz/v1
+OPENAI_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo
+
+# For Groq
+OPENAI_API_KEY=your-groq-api-key
+OPENAI_BASE_URL=https://api.groq.com/openai/v1
+OPENAI_MODEL=llama-3.3-70b-versatile
 ```
 
 ## Development
