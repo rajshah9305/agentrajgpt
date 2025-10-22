@@ -1,0 +1,48 @@
+ADD them to UI/UX:
+
+🧩 1. Core Experience
+Feature	Description
+Persistent Task View	Keeps the current task visible until it’s marked “Success” or “Failed.”
+Unified Workspace Layout	Fixed sidebar + dynamic main content area.
+Responsive Grid System	Adaptive to all screen sizes using Tailwind or CSS Grid.
+Loading & Idle States	Visual feedback during data fetch or processing.
+
+🎨 2. Visual Design & Theming
+Feature	Description
+Dark/Light Mode Toggle	Persist user preference in local storage.
+Subtle Motion Design	Smooth transitions (Framer Motion).
+Consistency System (Typography + Spacing)	Create design tokens for typography, spacing, and color palette.
+
+🔔 3. User Feedback & Notifications
+Feature	Description
+Color-Coded Alerts	Green for success, red for failure, yellow for warning, blue for info.
+Toast Stack with Auto-Dismiss	Compact animated notifications stacking top-right.
+Inline Validation Feedback	Real-time input validation while typing.
+
+⚙️ 4. Task Management UX
+Feature	Description
+Live Task Progress Bar	Displays percent completion + logs.
+Auto-Retry on Fail (Configurable)	Retry mechanism with exponential backoff.
+Task History Tab	Logs all past runs with timestamp, status, and output.
+Pinned Tasks / Favorites	Star high-priority tasks for quick reruns.
+
+👤 5. Personalization & Settings
+Feature	Description
+Profile Manager	Display user name, avatar, and editable info.
+API Key Management	Securely store multiple keys with labels.
+Model Selection Dropdown	Choose AI model dynamically (e.g., GPT-5, Claude, Cerebras).
+Endpoint & Parameter Editor	Editable API base URL + temp/rate settings.
+Export/Import Config	JSON export/import of user settings.
+
+⚡ 6. Performance & Stability Enhancements
+Feature	Description
+Lazy Loading & Code Splitting	Load only visible components.
+Local Cache System	Cache last results locally for offline access.
+Auto-Save Drafts	Preserve unsent task input.
+Optimistic UI Updates	Temporarily show success before API response (rollback if fail).
+📊 7. Analytics & Insights
+Feature	Description
+Run History Dashboard	Graph of task outcomes over time.
+Execution Time Tracker	Measure average run time per model.
+Usage Heatmap	Visualize most active features.
+Error Pattern Logging	Identify recurring failure causes.
